@@ -16,7 +16,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Campus prefixes.
  */
 
-const campus = {
+var campus = {
   andover: ['10', '12'],
   atlanta: ['60', '67'],
   austin: ['50', '53'],
@@ -45,8 +45,8 @@ const campus = {
  * Module dependencies.
  */
 
-const prefixes = _lodash2.default.flatten(_lodash2.default.valuesIn(campus));
-const expression = /^(\d{9})$/;
+var prefixes = _lodash2.default.flatten(_lodash2.default.valuesIn(campus));
+var expression = /^(\d{9})$/;
 
 /**
  * Validate function.
