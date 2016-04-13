@@ -1,20 +1,13 @@
 
 /**
- * See `http://www.irs.gov/Businesses/Small-Businesses-&-Self-Employed/How-EINs-are-Assigned-and-Valid-EIN-Prefixes` for more information.
- *
  * An Employer Identification Number (EIN), also known as a Federal Tax Identification Number, is used to identify a business entity.
  *
  * NOTES:
- *
  *  - Prefix 47 is being reserved for future use
  *  - Prefixes 26, 27, 45, 46 and 47 were previously assigned by the Philadelphia campus.
+ *
+ * See `http://www.irs.gov/Businesses/Small-Businesses-&-Self-Employed/How-EINs-are-Assigned-and-Valid-EIN-Prefixes` for more information.
  */
-
-/**
- * Module dependencies.
- */
-
-import _ from 'lodash';
 
 /**
  * Campus prefixes.
@@ -34,38 +27,48 @@ const campus = {
   philadelphia: ['33', '39', '41', '42', '43', '46', '48', '62', '63', '64', '66', '68', '71', '72', '73', '74', '75', '76', '77', '81', '82', '83', '84', '85', '86', '87', '88', '91', '92', '93', '98', '99'],
   sba: ['31']
 };
-const prefixes = _.flatten(_.valuesIn(campus));
-const expression = /^(\d{9})$/;
+
+/**
+ * Cache all available prefixes.
+ */
+
+const prefixes = [];
+
+for (const location in campus) {
+  prefixes.push(...campus[location]);
+}
+
+prefixes.sort();
+
+/**
+ * Expression.
+ */
+
+const expression = /^\d{2}[- ]{0,1}\d{7}$/;
 
 /**
  * Validate function.
  */
 
-function isValid(ein) {
-  if (!expression.test(ein)) {
+export function isValid(value) {
+  if (!expression.test(value)) {
     return false;
   }
 
-  return _.includes(prefixes, ein.substr(0, 2));
+  return prefixes.indexOf(value.substr(0, 2)) !== -1;
 }
 
 /**
- * Masks the EIN with "X" placeholders to protect sensitive data,
+ * Mask the EIN with "X" placeholders to protect sensitive data,
  * while keeping some of the original digits for contextual recognition.
  *
- * E.g. "123456789" -> "XXXXX6789"
+ * E.g. "123456789" -> "XXXXX6789", "12-3456789" -> "XX-XXX6789".
  */
 
-export function mask(ein) {
-  if (!isValid(ein)) {
+export function mask(value) {
+  if (!isValid(value)) {
     throw new Error('Invalid Employer Identification Number');
   }
 
-  return ein.substr(0, ein.length - 4).replace(/[\w]/g, 'X') + ein.substr(-4);
+  return `${value.substr(0, value.length - 4).replace(/[\w]/g, 'X')}${value.substr(-4)}`;
 }
-
-/**
- * Export default.
- */
-
-export { isValid as default };

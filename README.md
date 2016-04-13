@@ -1,44 +1,94 @@
-# Employer Identification Number (EIN)
+# ein-validator
+Validate and mask a U.S. Employer Identification Number (EIN).
 
-[![npm version][npm-image]][npm-url]
-[![build status][travis-image]][travis-url]
-
-This modules allows you to check if a number is a valid.
+## Status
+[![npm version][npm-image]][npm-url] [![build status][travis-image]][travis-url]
 
 ## Installation
+Install the package via `npm`:
 
-Choose your preferred method:
-
-* npm: `npm install --save is-valid-ein`
-* Download: [is-valid-ein](https://github.com/seegno/is-valid-ein)
+```sh
+npm install ein-validator --save
+```
 
 ## Usage
+### `isValid(value)`
+This method validates if the given value is a valid `Employer Identification Number`.
 
-*NOTE:* The input number **must not** be formated to `xxx-xxxxxx`.
+#### Arguments
+1. `value` _(*)_: The value to validate.
 
-> Check if number is valid.
+#### Returns
+_(boolean)_:  Returns whether the input value is a valid EIN or not.
 
-```js
-import isValidEin from 'is-valid-ein';
-
-isValidEin('xxxxxxxxx');
-```
-
-> Mask the number.
+#### Example
 
 ```js
-import { mask } from 'is-valid-ein';
+isValid({});
+// => false
 
-mask('xxxxxxxxx');
+isValid('0112345-67');
+// => false
+
+isValid('01-1234567');
+// => true
+
+isValid('011234567');
+// => true
 ```
 
-## Running tests
+--------------------------------------------------------------------------------
+
+### `mask(value)`
+This method will help you protect this sensitive piece of information by obfuscating some digits.
+
+#### Arguments
+1. `value` _(*)_: The value to mask.
+
+#### Returns
+_(string)_: Returns the masked value by replacing value certain digits by 'X'.
+
+#### Example
+
+```js
+mask({});
+// Throws an Error.
+
+mask('0112345-67');
+// Throws an Error.
+
+mask('01-1234567');
+// => XX-XXX0000
+
+mask('011234567');
+// => XXXXX4567
+```
+
+--------------------------------------------------------------------------------
+
+## Tests
+To test using a local installation of `node.js`:
 
 ```sh
 npm test
 ```
 
-[npm-image]: https://img.shields.io/npm/v/is-valid-ein.svg?style=flat-square
-[npm-url]: https://npmjs.org/package/is-valid-ein
-[travis-image]: https://img.shields.io/travis/seegno/is-valid-ein.svg?style=flat-square
-[travis-url]: https://travis-ci.org/seegno/is-valid-ein
+To test using Docker exclusively:
+
+```sh
+docker-compose run --rm sut
+```
+
+## Release
+
+```sh
+npm version [<newversion> | major | minor | patch] -m "Release %s"
+```
+
+## License
+MIT
+
+[npm-image]: https://img.shields.io/npm/v/ein-validator.svg?style=flat-square
+[npm-url]: https://npmjs.org/package/ein-validator
+[travis-image]: https://img.shields.io/travis/seegno/ein-validator.svg?style=flat-square
+[travis-url]: https://img.shields.io/travis/seegno/ein-validator.svg?style=flat-square
