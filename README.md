@@ -90,5 +90,5 @@ MIT
 
 [npm-image]: https://img.shields.io/npm/v/ein-validator.svg?style=flat-square
 [npm-url]: https://npmjs.org/package/ein-validator
-[travis-image]: https://img.shields.io/travis/seegno/ein-validator.svg?style=flat-square
-[travis-url]: https://img.shields.io/travis/seegno/ein-validator.svg?style=flat-square
+[travis-image]: https://img.shields.io/travis/uphold/ein-validator.svg?style=flat-square
+[travis-url]: https://img.shields.io/travis/uphold/ein-validator.svg?style=flat-square
