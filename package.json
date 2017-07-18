@@ -12,14 +12,14 @@
     "taxpayer",
     "validator"
   ],
-  "homepage": "https://github.com/seegno/ein-validator",
-  "bugs": "https://github.com/seegno/ein-validator/issues",
+  "homepage": "https://github.com/uphold/ein-validator",
+  "bugs": "https://github.com/uphold/ein-validator/issues",
   "license": "MIT",
-  "author": "Seegno",
+  "author": "Uphold",
   "main": "dist/src",
   "repository": {
     "type": "git",
-    "url": "https://github.com/seegno/ein-validator.git"
+    "url": "https://github.com/uphold/ein-validator.git"
   },
   "scripts": {
     "changelog": "github_changelog_generator --no-issues --header-label='# Changelog' --future-release=v$npm_config_future_release && sed -i '' -e :a -e '$d;N;2,4ba' -e 'P;D' CHANGELOG.md",
